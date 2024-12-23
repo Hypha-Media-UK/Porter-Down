@@ -1,0 +1,20 @@
+@use '../_abstracts' as *;
+
+header {
+    // Use CSS grid for layout
+    > div {
+        display: grid;
+        position: relative;
+        gap: var(--space-m);        
+    }
+
+    padding-block: var(--space-s);
+    // Use :where to lower specificity
+    :where(a) {
+        text-decoration: none;
+        
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

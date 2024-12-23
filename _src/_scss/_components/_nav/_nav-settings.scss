@@ -1,0 +1,56 @@
+:root {
+    // Navigation dimensions
+    --nav-width-mobile: min(100vw, 280px);
+    --nav-width-tablet: min(100vw, 300px);
+    --nav-width-desktop: min(100vw, 350px);
+    
+    // Navigation padding - Mobile
+    --nav-padding-block-mobile: clamp(30px, 8vh, 60px);
+    --nav-padding-inline-mobile: clamp(15px, 4%, 25px);
+    
+    // Navigation padding - Tablet
+    --nav-padding-block-tablet: clamp(40px, 10vh, 80px);
+    --nav-padding-inline-tablet: clamp(20px, 5%, 35px);
+    
+    // Navigation padding - Desktop
+    --nav-padding-block-desktop: clamp(50px, 12vh, 100px);
+    --nav-padding-inline-desktop: clamp(25px, 6%, 45px);
+    
+    // Toggle button dimensions
+    --nav-toggle-width: 30px;
+    --nav-toggle-height: 24px;
+    --nav-toggle-line-height: 3px;
+    --nav-toggle-line-spacing: 6px;
+    
+    // Z-index stack
+    --nav-overlay-z: 15;
+    --nav-panel-z: 20;
+    --nav-toggle-z: 25;
+    
+    // Colors
+    --nav-overlay-bg: hsla(200 100% 12% / 0.9);
+    --nav-bg-fallback: hsla(200 100% 10% / 1);
+    --nav-bg-start: hsla(200 100% 10% / 1);
+    --nav-bg-middle: hsla(200 100% 8% / 1);
+    --nav-bg-end: hsla(200 100% 10% / 1);
+    --nav-border-color: hsla(0, 0%, 100%, 0.1);
+    --nav-toggle-color: hsla(0, 0%, 100%, 1);
+    
+    // Text colors
+    --nav-text-color: hsla(0, 0%, 100%, 1);
+    --nav-text-hover-color: hsla(0, 0%, 80%, 1);
+    --nav-text-focus-color: hsla(0, 0%, 80%, 1);
+    --nav-text-current-color: hsla(0, 0%, 100%, 1);
+    --nav-focus-outline-color: hsla(0, 0%, 100%, 1);
+    
+    // Typography
+    --nav-font-family: inherit;
+    --nav-font-size: clamp(0.85rem, 0.5rem + 0.3vw, 1.05rem);
+
+    --nav-font-weight: 500;
+    --nav-font-weight-current: 700;
+    
+    // Transitions
+    --nav-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    --nav-transition-duration: 0.3s;
+}

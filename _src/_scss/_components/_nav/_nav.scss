@@ -1,0 +1,227 @@
+@use '_nav-settings';
+@use '_nav-animations';
+
+:root {
+    @extend %nav-settings !optional;
+}
+
+.nav {
+    --toggle-width: var(--nav-toggle-width);
+    --toggle-height: var(--nav-toggle-height);
+    --toggle-line-height: var(--nav-toggle-line-height);
+    --toggle-line-spacing: var(--nav-toggle-line-spacing);
+    --transition-timing: var(--nav-transition-timing);
+    --transition-duration: var(--nav-transition-duration);    
+    --total-icon-height: calc((var(--toggle-line-height) * 3) + (var(--toggle-line-spacing) * 2));
+    --icon-start-position: calc((var(--toggle-height) - var(--total-icon-height)) / 2);
+}
+
+.toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: var(--nav-toggle-z);
+    width: var(--toggle-width);
+    height: var(--toggle-height);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+
+    // Improve focus visibility
+    &:focus-visible {
+        outline: 2px solid var(--nav-focus-outline-color);
+        outline-offset: 2px;
+    }
+
+    // Remove focus outline for mouse users
+    &:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: var(--toggle-line-height);
+        background-color: var(--nav-toggle-color);
+        transform-origin: center;
+        will-change: transform;
+        
+        &:nth-child(1) {
+            top: var(--icon-start-position);
+            animation: nav-top-line-reverse 0.3s ease forwards;
+        }
+        
+        &:nth-child(2) {
+            top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+            animation: nav-middle-line-reverse 0.3s ease forwards;
+        }
+        
+        &:nth-child(3) {
+            top: calc(var(--icon-start-position) + (var(--toggle-line-height) * 2) + (var(--toggle-line-spacing) * 2));
+            animation: nav-bottom-line-reverse 0.3s ease forwards;
+        }
+    }
+
+    &[aria-expanded="true"] span {
+        &:nth-child(1) { animation: nav-top-line 0.3s ease forwards; }
+        &:nth-child(2) { animation: nav-middle-line 0.3s ease forwards; }
+        &:nth-child(3) { animation: nav-bottom-line 0.3s ease forwards; }
+    }
+}
+
+.nav > div[role="presentation"] {
+    position: fixed;
+    inset: 0;
+    background-color: var(--nav-overlay-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: 
+        opacity 0.6s var(--transition-timing),
+        visibility 0.4s var(--transition-timing);
+    z-index: var(--nav-overlay-z);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    /* Fallback for browsers that don't support dvh */
+    height: 100dvh;
+    width: var(--nav-width-mobile);
+    background: var(--nav-bg-fallback);
+    background: linear-gradient(180deg, 
+        var(--nav-bg-start) 0%, 
+        var(--nav-bg-middle) 50%, 
+        var(--nav-bg-end) 100%);
+    transition: transform var(--transition-duration) var(--transition-timing);
+    z-index: var(--nav-panel-z);
+    will-change: transform;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+
+    &[data-position="left"] {
+        left: 0;
+        right: auto;
+        transform: translateX(-100%);
+    }
+
+    &[data-position="right"] {
+        right: 0;
+        left: auto;
+        transform: translateX(100%);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition-duration: 0.1s;
+    }
+
+    ul {
+        padding-block-start: var(--nav-padding-block-mobile);
+        padding-inline: var(--nav-padding-inline-mobile);
+        margin: 0;
+        list-style: none;
+
+        @media (width > 730px) {
+            padding-block-start: var(--nav-padding-block-tablet);
+            padding-inline: var(--nav-padding-inline-tablet);
+        }
+
+        @media (width > 1140px) {
+            padding-block-start: var(--nav-padding-block-desktop);
+            padding-inline: var(--nav-padding-inline-desktop);
+        }
+    }
+
+    li {
+        text-transform: uppercase;
+        font-family: var(--nav-font-family);
+        font-size: var(--nav-font-size);
+        font-weight: var(--nav-font-weight);
+        line-height: 1.3;
+        margin-block-end: 20px;
+        border-bottom: 1px solid var(--nav-border-color);
+        opacity: 0;
+    }
+
+    a {
+        display: block;
+        color: var(--nav-text-color);
+        text-decoration: none;
+        transition: color .2s ease;
+        padding-block-end: 7px;
+        outline-offset: 4px;
+        
+        &:hover {
+            color: var(--nav-text-hover-color);
+            text-decoration: none;
+        }
+
+        &:focus-visible {
+            outline-color: var(--nav-focus-outline-color);
+            color: var(--nav-text-focus-color);
+        }
+
+        &[aria-current] {
+            font-weight: var(--nav-font-weight-current);
+            color: var(--nav-text-current-color);
+        }
+    }
+}
+
+.nav.open {
+    > div[role="presentation"] {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    nav {
+        transform: translateX(0);
+
+        li {
+            animation: nav-stagger-in 0.35s ease-out forwards;
+            font-size: var(--nav-font-size);
+            @for $i from 1 through 10 {
+                &:nth-child(#{$i}) {
+                    animation-delay: #{0.1 + ($i * 0.075)}s;
+                }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            li {
+                animation: none;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@media (width > 320px) {
+    nav {
+        width: var(--nav-width-mobile);
+    }
+}
+
+@media (width > 730px) {
+    nav {
+        width: var(--nav-width-tablet);
+    }
+}
+
+@media (width > 1140px) {
+    nav {
+        width: var(--nav-width-desktop);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toggle span {
+        animation: none !important;
+    }
+}

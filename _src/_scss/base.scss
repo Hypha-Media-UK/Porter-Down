@@ -1,0 +1,48 @@
+@use '_abstracts' as *;
+
+// Components
+@use '_components/header';
+@use '_components/_nav/nav';
+
+
+// Base HTML elements
+html {
+    scroll-behavior: smooth;
+    height: 100vh;
+}
+
+body {
+    position: relative;
+    font-family: var(--font-family-sans);
+    -webkit-text-size-adjust: 100%;
+    background: var(--body-color);
+    color: var(--color-text, var(--white));
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    
+    > * {
+        --padding-inline: clamp(1rem, 7%, 10%);
+        --content-max-width: 1400px;
+        
+        display: grid;
+        grid-template-columns: 
+            [full-width-start] minmax(var(--padding-inline), 1fr)
+            [content-start] min(100% - (var(--padding-inline) * 2), var(--content-max-width))
+            [content-end] minmax(var(--padding-inline), 1fr)
+            [full-width-end];
+        
+        // Set default grid-column for immediate children
+        > * {
+            grid-column: content;
+        }
+        
+        // fw = Full Width
+        > .fw {
+            grid-column: full-width;
+            display: grid;
+            grid-template-columns: inherit;
+        }
+    }
+}

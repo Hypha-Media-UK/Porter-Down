@@ -1,0 +1,82 @@
+// Toggle button animations
+@keyframes nav-middle-line {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes nav-middle-line-reverse {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes nav-top-line {
+    0% {
+        top: var(--icon-start-position);
+        transform: rotate(0);
+    }
+    50% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(0);
+    }
+    100% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes nav-top-line-reverse {
+    0% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(45deg);
+    }
+    50% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(0);
+    }
+    100% {
+        top: var(--icon-start-position);
+        transform: rotate(0);
+    }
+}
+
+@keyframes nav-bottom-line {
+    0% {
+        top: calc(var(--icon-start-position) + (var(--toggle-line-height) * 2) + (var(--toggle-line-spacing) * 2));
+        transform: rotate(0);
+    }
+    50% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(0);
+    }
+    100% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(-45deg);
+    }
+}
+
+@keyframes nav-bottom-line-reverse {
+    0% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(-45deg);
+    }
+    50% {
+        top: calc(var(--icon-start-position) + var(--toggle-line-height) + var(--toggle-line-spacing));
+        transform: rotate(0);
+    }
+    100% {
+        top: calc(var(--icon-start-position) + (var(--toggle-line-height) * 2) + (var(--toggle-line-spacing) * 2));
+        transform: rotate(0);
+    }
+}
+
+// Menu items stagger animation
+@keyframes nav-stagger-in {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
